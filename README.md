@@ -64,12 +64,12 @@ are in `train.py`'s module docstring and `config/final_model_config.yaml`.
 
 ### Final model vs. the alternative architecture we tried (RRDB)
 
-Both models were fully trained end-to-end and evaluated on the same 40-image held-out set:
+Both models were fully trained end-to-end and evaluated on the same held-out set:
 
-| Model | PSNR (dB) ↑ | SSIM ↑ | LPIPS ↓ | Images won |
-|---|---|---|---|---|
-| **NAFNet+Gram (submitted)** | **23.696** | **0.600** | 0.249 | 38/40 (PSNR), 36/40 (SSIM) |
-| RRDB | 22.849 | 0.543 | **0.198** | 35/40 (LPIPS) |
+| Model | PSNR (dB) ↑ | SSIM ↑ | LPIPS ↓ |
+|---|---|---|---|
+| **NAFNet+Gram (submitted)** | **23.475** | **0.657** | 0.215 |
+| RRDB | 22.732 | 0.611 | **0.189** |
 
 ![RRDB vs NAFNet+Gram comparison](results/rrdb_vs_nafnet_grid.png)
 *Noisy input, NAFNet+Gram output, RRDB output, and ground truth, side by side.*
@@ -121,7 +121,7 @@ A case where the fine surface texture is visibly closer to ground truth on the r
 ![Sample comparison 000023](results/sample_outputs/000023_compare.png)
 *000023 — on this image NAFNet+Gram (PSNR 21.85, SSIM 0.585, LPIPS 0.251) beats RRDB
 (PSNR 20.71, SSIM 0.515, LPIPS 0.257) on all three metrics at once, including LPIPS.
-RRDB's aggregate LPIPS edge across the full 40-image set doesn't mean it wins on every
+RRDB's aggregate LPIPS edge across the full set doesn't mean it wins on every
 individual image — this is one of the images where it doesn't.*
 
 More before/after examples, each with printed per-image PSNR/SSIM/LPIPS for both models,
