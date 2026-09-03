@@ -31,7 +31,7 @@ are reported below.
 
 ## Pipeline
 
-![Pipeline diagram](results/pipeline_diagram.png)
+![Pipeline diagram](results/noisetrue_adaptive_pipeline_v2.png)
 
 A NAFNet-lite encoder–decoder performs joint denoising, deblurring and 2× super-resolution
 in a **single forward pass**, ending in a PixelShuffle upsample head. Each NAFBlock uses
