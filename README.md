@@ -85,7 +85,7 @@ perceptual texture. We shipped NAFNet+Gram anyway, for two reasons:
    add-on we could borrow without adopting RRDB's much heavier architecture wholesale.
 
 RRDB's architecture, training script, and checkpoint are kept in this repo
-(`src/model_rrdb.py`, `models/best_rrdb.pth`) for full reproducibility of this comparison,
+(`src/model_rrdb.py`, `models/baseline-models/best_rrdb.pth`) for full reproducibility of this comparison,
 but it is **not** the submitted model.
 
 ### Validating the FiLM novelty
@@ -133,15 +133,15 @@ are in `results/sample_outputs/`.
 
 ```
 README.md
-LICENSE.md
 requirements.txt
 train.py                     reproduces the submitted checkpoint (all 3 stages)
 run.py                       official entry point: python run.py <input-dir> <output-dir>
 config/
   final_model_config.yaml    every hyperparameter of the final run, all 3 stages
 models/
-  nafnet+gram_best.pth       SUBMITTED checkpoint -- use this one
-  best_rrdb.pth              RRDB checkpoint, kept for the comparison above (not submitted)
+  final_model.pth            SUBMITTED checkpoint -- use this one (NAFNet+Gram)
+  baseline-models/
+    best_rrdb.pth            RRDB checkpoint, kept for the comparison above (not submitted)
 src/
   model_nafnet.py            NAFBlock, NAFNet-lite, FiLM, final model architecture
   model_rrdb.py              RRDB architecture, used only for the comparison above
@@ -173,7 +173,7 @@ python run.py <input-dir> <output-dir>
 This is the official, self-contained entry point — the model architecture is defined
 directly inside `run.py`, so it has no dependency on the `src/` folder. Detects and uses
 a GPU automatically, falls back to CPU otherwise. Weights load from
-`models/nafnet+gram_best.pth` by default; override with `--model_path`. Images sharing a
+`models/final_model.pth` by default; override with `--model_path`. Images sharing a
 shape are batched together (`--batch_size`, default 16). Outputs are clipped to [0,1] and
 sanitised of any NaN/Inf values before saving, since the evaluator scores files exactly
 as written. **No internet access, API keys, or manual source-code edits are required.**
