@@ -5,7 +5,7 @@
 Phase 2 submission for SEMICON India Hackathon 2026, KLA Track — *AI-Based Restoration of
 Degraded Images for Semiconductor Inspection*.
 
-**[Demo Video](https://youtu.be/M1pKS-XS6pU)** | **[Solution Deck (PDF)](https://drive.google.com/file/d/1iLRiGF6yxCLWMOjWRA0sVWIn8MI3SXWP/view?usp=sharing)** | **[Solution Deck (PPTX)](https://docs.google.com/presentation/d/1hs-8x0sV1sRPg2M0ldfNhs1p-pJo73uZ/edit?usp=sharing&ouid=115557418606214665903&rtpof=true&sd=true)**
+**[Demo Video](https://youtu.be/M1pKS-XS6pU)** | **[Solution Deck (PDF)](https://drive.google.com/file/d/1GV9OCNKLpJt115744YmUzuTWU3j3521c/view?usp=sharing)** | **[Solution Deck (PPTX)](https://docs.google.com/presentation/d/1uriHs7bcB4YmkNabyObaSg3D1NHmSY5Z/edit?usp=drive_link&ouid=115557418606214665903&rtpof=true&sd=true)**
 
 ---
 
