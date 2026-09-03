@@ -107,12 +107,25 @@ and ablation tests on the final checkpoint rather than describing the mechanism 
 
 Measured the same way the evaluator measures it: script startup, disk reads, model
 execution, clipping, and disk writes, all included. Reported per-stage-hardware numbers
-are in `configs/final_model_config.yaml`; expect faster still on the H100 used for
+are in `config/final_model_config.yaml`; expect faster still on the H100 used for
 evaluation.
 
 ## Visual results
 
-More before/after examples are in `results/sample_outputs/`.
+Two representative examples, pulled directly from `results/sample_outputs/`:
+
+![Sample comparison 000015](results/sample_outputs/000015_compare.png)
+*000015 — noisy input, RRDB output, NAFNet+Gram output, and ground truth, side by side.
+A case where the fine surface texture is visibly closer to ground truth on the right.*
+
+![Sample comparison 000023](results/sample_outputs/000023_compare.png)
+*000023 — on this image NAFNet+Gram (PSNR 21.85, SSIM 0.585, LPIPS 0.251) beats RRDB
+(PSNR 20.71, SSIM 0.515, LPIPS 0.257) on all three metrics at once, including LPIPS.
+RRDB's aggregate LPIPS edge across the full 40-image set doesn't mean it wins on every
+individual image — this is one of the images where it doesn't.*
+
+More before/after examples, each with printed per-image PSNR/SSIM/LPIPS for both models,
+are in `results/sample_outputs/`.
 
 ---
 
@@ -138,9 +151,11 @@ src/
   losses_v3.py               combined losses for all 3 training stages
   prep_gram_finetune_ckpt.py repackages Stage 2's checkpoint for the Stage 3 fine-tune
 results/
-  pipeline_diagram.png       architecture diagram (shown above)
-  rrdb_vs_nafnet_grid.png    visual comparison grid (shown above)
-  sample_outputs/            per-image before/after comparisons
+  noisetrue_adaptive_pipeline_v2.png   architecture diagram (shown above)
+  rrdb_vs_nafnet_grid.png              visual comparison grid (shown above)
+  sample_outputs/                      per-image before/after comparisons,
+                                        including 000015_compare.png and
+                                        000023_compare.png featured above
 ```
 
 ## Setup
