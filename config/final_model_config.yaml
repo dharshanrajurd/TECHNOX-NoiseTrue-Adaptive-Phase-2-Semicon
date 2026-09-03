@@ -1,0 +1,53 @@
+# final_model_config.yaml
+# Config for the FINAL submitted checkpoint: nafnet+gram_best.pth
+#
+# IMPORTANT: this checkpoint is the product of THREE sequential training
+# stages (see train.py docstring for exact commands), not a single run.
+# "epochs: 15" below refers only to Stage 3's own fine-tune length --
+# Stage 3 resumes from Stage 2's weights but resets the epoch counter,
+# so it is NOT the total training length. Total cumulative epochs across
+# all 3 stages = 150 + 30 + 15 = 195.
+
+model:
+  name: NAFNetLiteAdaptive
+  base_ch: 48
+  params: 2731921
+
+training_lineage:
+  stage_1_base:
+    epochs: 150
+    description: "From scratch. Reconstruction losses only (Charbonnier + Sobel + VGG + FFT + MS-SSIM). No GAN, no Gram."
+    result_val_loss: 0.12017
+
+  stage_2_gan_finetune:
+    epochs: 30                # continues Stage 1's checkpoint, epoch 150 -> 180
+    resumed_from: checkpoints_stage1/latest.pth
+    description: "PatchDiscriminator (LSGAN) added, adv_weight=0.015, gan_start_epoch=150."
+    result: "modest sharpening, slight PSNR trade-off (known perception-distortion tradeoff)"
+
+  stage_3_gram_finetune:        # <-- THIS stage produced the submitted checkpoint
+    epochs: 15                 # fresh epoch counter, reset via prep_gram_finetune_ckpt.py
+    resumed_from: "Stage 2 weights, repackaged via src/prep_gram_finetune_ckpt.py"
+    result_val_loss: 0.11536
+    result_avg_psnr_db: 23.561
+
+total_cumulative_epochs: 195   # 150 + 30 + 15
+
+# --- Hyperparameters used in the FINAL stage (Stage 3) that produced this checkpoint ---
+final_stage_hyperparameters:
+  seed: 42
+  batch_size: 16
+  lr: 0.001
+  optimizer: Adam
+  loss_weights:
+    vgg_weight: 0.05
+    fft_weight: 0.07
+    msssim_weight: 0.15
+    gram_weight: 0.05
+  augmentation:
+    synth_prob: 0.3
+    elastic_prob: 0.2
+
+result:
+  best_val_loss: 0.11536
+  avg_psnr_db: 23.561
