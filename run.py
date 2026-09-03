@@ -220,7 +220,7 @@ class NAFNetLiteAdaptive(NAFNetLite):
 # =====================================================================
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_MODEL_PATH = os.path.join(HERE, "models", "nafnet+gram_best.pth")
+DEFAULT_MODEL_PATH = os.path.join(HERE, "models", "final_model.pth")
 
 
 def parse_args():
