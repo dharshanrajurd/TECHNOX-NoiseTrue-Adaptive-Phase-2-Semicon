@@ -3,22 +3,23 @@ NoiseTrue-Adaptive -- official Phase 2 submission entry script.
 
 Required submission component #1 (KLA AI Hackathon problem statement):
   - Standalone Python script (not a notebook) -- this is that.
-  - Accepts a test images directory and an output directory.
+  - Accepts a test images directory and an output directory as positional
+    command-line arguments: python run.py <input_directory> <output_directory>
   - Loads the trained model, runs inference on all input images.
   - Writes denoised outputs to the specified directory.
   - Runs with zero manual edits (aside from --model_path, which is a
-    legitimate CLI arg, not a code edit).
+    legitimate optional CLI flag, not a code edit).
   - Scored partly on end-to-end speed (script startup + disk I/O +
     inference + disk I/O, timed) -- this script times and prints all of
     that, matching how the evaluator will measure it.
 
 Usage:
-    python evaluate.py --input_dir /path/to/test/NoisyLR --output_dir /path/to/outputs
+    python run.py <input_directory> <output_directory>
 
 Fully self-contained: the model architecture is defined directly in this
 file, so there is no dependency on src/ or any other project file. The
 only external requirement is the trained checkpoint at
-models/nafnet+gram_best.pth (relative to this script, overridable with
+models/final_model.pth (relative to this script, overridable with
 --model_path), loaded once at startup. No internet access, API keys, or
 additional downloads are used or required at any point.
 """
@@ -225,10 +226,10 @@ DEFAULT_MODEL_PATH = os.path.join(HERE, "models", "final_model.pth")
 
 def parse_args():
     p = argparse.ArgumentParser(description="NoiseTrue-Adaptive restoration -- Phase 2 entry point")
-    p.add_argument("--input_dir", required=True, help="Directory containing degraded .npy images")
-    p.add_argument("--output_dir", required=True, help="Directory to write restored .npy images (created if missing)")
+    p.add_argument("input_dir", help="Directory containing degraded .npy images")
+    p.add_argument("output_dir", help="Directory to write restored .npy images (created if missing)")
     p.add_argument("--model_path", default=DEFAULT_MODEL_PATH,
-                   help="Path to the trained checkpoint (default: models/nafnet+gram_best.pth)")
+                   help="Path to the trained checkpoint (default: models/final_model.pth)")
     p.add_argument("--base_ch", type=int, default=48,
                    help="Model width used at training time (48 for the submitted checkpoint)")
     p.add_argument("--batch_size", type=int, default=16,
